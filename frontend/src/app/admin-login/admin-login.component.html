@@ -1,0 +1,41 @@
+<div class="auth-container">
+  <h2>Welcome to <span style="color: #007bff">Propertea.in</span></h2>
+
+  <div class="button-container">
+    <button class="btn-primary" (click)="returnBack()">
+      Back to Login/Signup
+    </button>
+  </div>
+
+  <!-- Login Form -->
+  <div>
+    <form (submit)="logIn()">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="loginData.email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="loginData.password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn-primary">Log In</button>
+    </form>
+  </div>
+
+  <!-- Display the response message -->
+  <div *ngIf="responseMessage">
+    <p>{{ responseMessage }}</p>
+  </div>
+</div>

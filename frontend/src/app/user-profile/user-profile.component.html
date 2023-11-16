@@ -1,0 +1,323 @@
+<!-- user-profile.component.html -->
+
+<div class="user-profile">
+  <h2>User Profile</h2>
+
+  <div class="wallet-info-box">
+    <p><strong>Wallet ID:</strong> {{ user_wallet.id }}</p>
+    <p><strong>Wallet Balance:</strong> {{ user_wallet.available_balance }}</p>
+    <p><i>500 credits can be added once every two hours</i></p>
+    <button
+      class="wallet-button"
+      [disabled]="isAddMoneyDisabled"
+      (click)="addMoneyToWallet()"
+    >
+      Add Money
+    </button>
+    <div *ngIf="addMoneyResponseMessage"><p><strong>{{addMoneyResponseMessage}}</strong></p></div>
+  </div>
+
+  <!-- Display user information -->
+  <div *ngIf="!editMode">
+    <p><strong>Name:</strong> {{ userProfile.name }}</p>
+    <p><strong>Email:</strong> {{ userProfile.email }}</p>
+    <button class="action-button" (click)="enableEditMode()">
+      Edit Profile
+    </button>
+  </div>
+
+  <!-- Edit mode -->
+  <div *ngIf="editMode">
+    <form (ngSubmit)="saveChanges()">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="newUserData.name"
+        required
+      />
+      <!-- 
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="newUserData.email" required> -->
+
+      <button class="action-button" type="submit">Save Changes</button>
+      <button class="action-button" type="button" (click)="cancelEdit()">
+        Cancel
+      </button>
+    </form>
+  </div>
+
+  <ul *ngIf="userProperties">
+    <li *ngFor="let property of userProperties" class="property-item">
+      <div class="property-details">
+        <p><strong>Property Name:</strong> {{ property.name }}</p>
+        <p>
+          <strong>Property Value:</strong>
+          {{ property.for_sale ? property.price : property.price + "/month" }}
+        </p>
+        <p><strong>Property Location:</strong> {{ property.location }}</p>
+        <p>
+          <strong>Property Type:</strong>
+          {{ property.for_sale ? "Buy" : "Rent" }}
+        </p>
+        <ng-container *ngIf="property.amenities">
+          <p><strong>Property Amenities:</strong> {{ property.amenities }}</p>
+        </ng-container>
+        <ng-container *ngIf="!property.for_sale">
+          <p><strong>Dates of Availability</strong></p>
+          <p><strong>From Date:</strong> {{ property.start_date }}</p>
+          <p><strong>To Date:</strong> {{ property.end_date }}</p>
+        </ng-container>
+        <ng-container>
+          <span class="property-value"
+            ><strong>Property Verfied by Admin:</strong></span
+          >
+          <span *ngIf="property.is_admin_verified"> Verified<br /></span>
+          <span *ngIf="!property.is_admin_verified"> Not Verified<br /></span>
+        </ng-container>
+        <!-- <button (click)="downloadPdfWithContent(property.name)">View PDF</button> -->
+      </div>
+      <div class="property-actions">
+        <div
+          class="verify-form-container"
+          *ngIf="
+            otpVerificationVisible && deletedProperty.name === property.name
+          "
+        >
+          <input
+            [(ngModel)]="deletePopUpInput"
+            placeholder="Enter OTP"
+            class="verify-form-input"
+          />
+          <button (click)="deleteProperty(property.name)" class="action-button">
+            Verify
+          </button>
+        </div>
+        <button
+          (click)="showDeleteVerification(property.name)"
+          class="delete-button"
+          [disabled]="deleteButtonsDisabled"
+        >
+          Delete
+        </button>
+        <button
+          (click)="toggleViewListing(property.name)"
+          class="toggle-button-2"
+        >
+          <span>
+            {{
+              property.view_listing == true
+                ? "Hide from listing"
+                : "Show for listing"
+            }}</span
+          >
+        </button>
+        <div
+          class="verify-form-container"
+          *ngIf="
+            UploadDocumentButtonVisible &&
+            addDocumentProperty.name === property.name
+          "
+        >
+          <div class="upload-button">
+            <input
+              type="file"
+              (change)="onPropertyDocumentsSelected($event)"
+              accept=".pdf"
+              required
+            />
+          </div>
+          <input
+            [(ngModel)]="privateKeyInput"
+            placeholder="Enter Private Key"
+            class="verify-form-input"
+          />
+          <button
+            (click)="addDocumentToProperty(property.name)"
+            class="action-button"
+          >
+            Upload
+          </button>
+        </div>
+        <button
+          (click)="showAddDocumentForm(property.name)"
+          class="upload-document-button"
+          [disabled]="addDocumentButtonsDisabled"
+        >
+          Add Document
+        </button>
+      </div>
+      <ul *ngIf="property.documents">
+        <li
+          *ngFor="let document of property.documents"
+          class="property-document-item"
+        >
+          <div class="property-document">
+            <button (click)="downloadPdfWithContent(document.content)">
+              {{ document.name }}
+            </button>
+            <span
+              class="delete-document-button"
+              (click)="deleteDocumentFromProperty(document.id)"
+              >X</span
+            >
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="property-form">
+    <button
+      (click)="showAddPropertyForm = !showAddPropertyForm"
+      class="toggle-button"
+    >
+      Add My Property
+    </button>
+    <button
+      (click)="showModifyPropertyForm = !showModifyPropertyForm"
+      class="toggle-button"
+    >
+      Modify My Property
+    </button>
+    <button
+      (click)="showDeletePropertyForm = !showDeletePropertyForm"
+      class="toggle-button"
+    >
+      Delete My Property
+    </button>
+  </div>
+
+  <div class="form-container" *ngIf="showAddPropertyForm">
+    <input
+      [(ngModel)]="newProperty.name"
+      placeholder="Property Name"
+      class="form-input"
+    />
+    <input
+      [(ngModel)]="newProperty.price"
+      placeholder="Property Value"
+      class="form-input"
+    />
+    <select [(ngModel)]="newProperty.type" class="form-input">
+      <option value="" disabled selected>Property Type</option>
+      <option value="Rent">Rent</option>
+      <option value="To Sell">To Sell</option>
+    </select>
+    <input
+      [(ngModel)]="newProperty.location"
+      placeholder="Property Location"
+      class="form-input"
+    />
+    <input
+      [(ngModel)]="newProperty.amenities"
+      placeholder="Property Amenities"
+      class="form-input"
+    />
+    <ng-container *ngIf="newProperty.type === 'Rent'">
+      <input
+        [(ngModel)]="newProperty.start_date"
+        placeholder="From Date (DD/MM/YYYY)"
+        class="form-input"
+      />
+    </ng-container>
+    <ng-container *ngIf="newProperty.type === 'Rent'">
+      <input
+        [(ngModel)]="newProperty.end_date"
+        placeholder="To Date (DD/MM/YYYY)"
+        class="form-input"
+      />
+    </ng-container>
+    <button (click)="addProperty()" class="action-button">Add</button>
+  </div>
+
+  <div class="form-container" *ngIf="showModifyPropertyForm">
+    <input
+      [(ngModel)]="modifiedProperty.old_name"
+      placeholder="Property Name to Modify"
+      class="form-input"
+    />
+    <input
+      [(ngModel)]="modifiedProperty.new_name"
+      placeholder="New Property Name"
+      class="form-input"
+    />
+    <input
+      [(ngModel)]="modifiedProperty.new_value"
+      placeholder="New Property Value"
+      class="form-input"
+    />
+    <select [(ngModel)]="modifiedProperty.new_type" class="form-input" required>
+      <option value="" disabled selected>Property Type</option>
+      <option value="Rent">Rent</option>
+      <option value="To Sell">To Sell</option>
+    </select>
+    <input
+      [(ngModel)]="modifiedProperty.new_location"
+      placeholder="Property Location"
+      class="form-input"
+    />
+    <input
+      [(ngModel)]="modifiedProperty.new_amenities"
+      placeholder="Property Amenities"
+      class="form-input"
+    />
+    <ng-container *ngIf="modifiedProperty.new_type === 'Rent'">
+      <input
+        [(ngModel)]="modifiedProperty.newFromDate"
+        placeholder="From Date (DD/MM/YYYY)"
+        class="form-input"
+      />
+    </ng-container>
+    <ng-container *ngIf="modifiedProperty.new_type === 'Rent'">
+      <input
+        [(ngModel)]="modifiedProperty.newToDate"
+        placeholder="To Date (DD/MM/YYYY)"
+        class="form-input"
+      />
+    </ng-container>
+    <button (click)="modifyProperty()" class="action-button">Modify</button>
+  </div>
+
+  <div class="form-container" *ngIf="showDeletePropertyForm">
+    <input
+      [(ngModel)]="deletedProperty.name"
+      placeholder="Property Name to Delete"
+      class="form-input"
+    />
+    <button
+      (click)="showDeleteVerification(deletedProperty.name)"
+      class="action-button"
+    >
+      Delete
+    </button>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="navigation-buttons">
+    <button (click)="goToHomePage()" class="nav-button">
+      Search For Properties
+    </button>
+    <button (click)="showInterestedParties()" class="nav-button">
+      Show Interested Parties
+    </button>
+    <button (click)="showPropertiesYouAreIntrestedIn()" class="nav-button">
+      Show Properties You Are Interested In
+    </button>
+    <button (click)="showPastHistory()" class="nav-button">
+      Show Past History
+    </button>
+    <button routerLink="/user-register" class="nav-button">Logout</button>
+  </div>
+
+  <div class="messagepopup-overlay" *ngIf="showMessagePopup">
+    <div class="messagepopup">
+      <div class="message-popup-content">
+        {{ messagePopupText }}
+        <br />
+        <span id="timer">{{ messagePopUpCountdown }}</span>
+      </div>
+    </div>
+  </div>
+</div>

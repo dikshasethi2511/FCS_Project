@@ -1,0 +1,34 @@
+.contract-container {
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-width: 400px;
+}
+
+.contract-details {
+  margin-top: 20px;
+}
+
+.rent-details {
+  margin-top: 10px;
+}
+
+.private-key-input {
+  margin-top: 20px;
+}
+
+.pretty-button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}

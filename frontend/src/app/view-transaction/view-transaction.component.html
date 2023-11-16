@@ -1,0 +1,19 @@
+<div class="home-page">
+    <button class="button" (click)="goToAdminProfile()">
+      Back to Admin Profile
+    </button>
+  
+    <ul class="user-list" *ngIf="transactions;">
+      <li *ngFor="let transaction of transactions" class="user-item">
+        <div class="user-info">
+          <p>From: {{ transaction.source }}</p>
+          <p>To: {{ transaction.wallet_id }}</p>
+          <p>Amount: {{ transaction.amount }}</p>
+          <p>Timestamp: {{ transaction.timestamp }}</p>
+        </div>
+      </li>
+    </ul>
+  
+    <button class="logout-button" routerLink="/user-register">Logout</button>
+  </div>
+  

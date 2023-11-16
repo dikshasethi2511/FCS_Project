@@ -1,0 +1,51 @@
+<div class="user-profile">
+  <h2>Interested Buyers/ Lessees</h2>
+  <ul>
+    <li *ngFor="let contract of contracts" class="property-item">
+      <div class="property-details" *ngIf="!contract.sellerVerified">
+        <p>
+          <strong>Interested Buyer/Lessee Email:</strong>
+          {{ contract.buyer_email }}
+        </p>
+        <p><strong>Seller Email:</strong> {{ contract.seller_email }}</p>
+        <p><strong>Property Name:</strong> {{ contract.property_name }}</p>
+        <p>
+          <strong>Property Value:</strong>
+          {{
+            contract.for_sale
+              ? contract.property_value
+              : contract.property_value + "/month"
+          }}
+        </p>
+        <p>
+          <strong>Property Location:</strong> {{ contract.property_location }}
+        </p>
+        <p>
+          <strong>Property Type:</strong>
+          {{ contract.for_sale ? "Buy" : "Rent" }}
+        </p>
+        <ng-container *ngIf="contract.property_amenities">
+          <p>
+            <strong>Property Amenities:</strong>
+            {{ contract.property_amenities }}
+          </p>
+        </ng-container>
+        <ng-container *ngIf="!contract.for_sale">
+          <p><strong>Dates of Availability</strong></p>
+          <p><strong>From Date:</strong> {{ contract.property_fromDate }}</p>
+          <p><strong>To Date:</strong> {{ contract.property_toDate }}</p>
+        </ng-container>
+        <button (click)="generateContract(contract)" class="action-button">
+          Generate Contract
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="navigation-buttons">
+    <button (click)="goToHomePage()" class="nav-button">
+      Search For Properties
+    </button>
+    <button routerLink="/signin" class="nav-button">Logout</button>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<!-- home-page.component.html -->
+
+<div class="home-page">
+  <h2 class="page-title">All Properties for Buying and Renting</h2>
+
+  <div class="filter-section">
+    <h2>Filters</h2>
+
+    <div class="filter-group">
+      <label>Type:</label>
+      <select [(ngModel)]="filterType">
+        <option value="">All</option>
+        <option value="Rent">Rent</option>
+        <option value="Buy">Buy</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Property Value (Range):</label>
+      <div class="range-inputs">
+        <input type="number" placeholder="Min" [(ngModel)]="filterMinValue" />
+        <span class="range-divider">-</span>
+        <input type="number" placeholder="Max" [(ngModel)]="filterMaxValue" />
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label>Location:</label>
+      <input type="text" [(ngModel)]="filterLocation" />
+    </div>
+
+    <div class="filter-group">
+      <label>Amenities:</label>
+      <input type="text" [(ngModel)]="filterAmenities" />
+    </div>
+
+    <ng-container *ngIf="filterType === 'Rent'" class="date-filter">
+      <div class="filter-group">
+        <label>From Date (DD/MM/YYYY):</label>
+        <input
+          type="text"
+          placeholder="DD/MM/YYYY"
+          [(ngModel)]="filterStartDate"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label>To Date (DD/MM/YYYY):</label>
+        <input
+          type="text"
+          placeholder="DD/MM/YYYY"
+          [(ngModel)]="filterEndDate"
+        />
+      </div>
+    </ng-container>
+
+    <div class="button-group">
+      <button (click)="applyFilters()">Apply Filters</button>
+      <button (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+
+  <ul class="user-list">
+    <li *ngFor="let property of filteredProperties" class="user-item">
+      <div class="user-info">
+        <p class="user-email">{{ property.owner_email }}</p>
+        <ng-container *ngIf="property.view_listing">
+          <span class="property-name">Property Name:</span> {{ property.name
+          }}<br />
+          <span class="property-value">Property Value:</span>
+          {{ property.for_sale ? property.price : property.price + "/month" }}
+          <br />
+          <!-- <span class="property-value">Property Type:</span> {{ property.for_sale }}<br /> -->
+          <span class="property-value">Property Location:</span>
+          {{ property.location }}<br />
+          <ng-container *ngIf="property.amenities">
+            <span class="property-value">Property Amenities:</span>
+            {{ property.amenities }}<br />
+          </ng-container>
+          <ng-container *ngIf="!property.for_sale">
+            <span class="property-value">From Date:</span>
+            {{ property.start_date }}<br />
+            <span class="property-value">To Date:</span> {{ property.end_date
+            }}<br />
+          </ng-container>
+          <ng-container>
+            <span class="property-value">Property Verfied by Admin:</span>
+            <span *ngIf="property.is_admin_verified"> Verified<br /></span>
+            <span *ngIf="!property.is_admin_verified"
+              ><b> Not Verified Transact at your own risk</b><br
+            /></span>
+          </ng-container>
+          <!-- Display Buy or Rent button based on property type -->
+          <div *ngIf="!property.is_sold">
+            <button
+              *ngIf="property.for_sale"
+              (click)="buyRentProperty(property)"
+            >
+              Buy
+            </button>
+            <button
+              *ngIf="!property.for_sale"
+              (click)="buyRentProperty(property)"
+            >
+              Rent
+            </button>
+          </div>
+          <div
+            *ngIf="property.is_sold"
+            class="sold-message"
+          >
+            <h3>Already rented or bought!</h3>
+          </div>
+        </ng-container>
+      </div>
+      <button (click)="reportUser(property.owner_email)">Report user</button>
+      <button (click)="reportProperty(property.id)">Report property</button>
+    </li>
+  </ul>
+
+  <button (click)="gotToUserProfile()" class="profile-button">
+    My Profile
+  </button>
+  <button class="logout-button" routerLink="/user-register">Logout</button>
+</div>

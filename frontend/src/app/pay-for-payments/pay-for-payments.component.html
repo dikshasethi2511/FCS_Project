@@ -1,0 +1,99 @@
+<h1>Pending Payments</h1>
+<div class="user-profile">
+  <ul>
+    <li *ngFor="let contract of contracts" class="property-item">
+      <div class="property-details">
+        <p>
+          <strong>Buyer/Lessee Email:</strong>
+          {{ contract.buyer_email }}
+        </p>
+        <p><strong>Seller Email:</strong> {{ contract.seller_email }}</p>
+        <p><strong>Property Name:</strong> {{ contract.property_name }}</p>
+        <p>
+          <strong>Property Value:</strong>
+          {{
+            contract.for_sale
+              ? contract.property_value
+              : contract.property_value + "/month"
+          }}
+        </p>
+        <p>
+          <strong>Property Location:</strong> {{ contract.property_location }}
+        </p>
+        <p>
+          <strong>Property Type:</strong>
+          {{ contract.for_sale ? "Buy" : "Rent" }}
+        </p>
+        <ng-container *ngIf="contract.property_amenities">
+          <p>
+            <strong>Property Amenities:</strong>
+            {{ contract.property_amenities }}
+          </p>
+        </ng-container>
+        <ng-container *ngIf="!contract.for_sale">
+          <p><strong>Dates of Availability</strong></p>
+          <p><strong>From Date:</strong> {{ contract.property_fromDate }}</p>
+          <p><strong>To Date:</strong> {{ contract.property_toDate }}</p>
+        </ng-container>
+        <p>
+          <strong>Amount Due:</strong>
+          {{ contract.property_value - contract.amount_paid }}
+        </p>
+        <div *ngIf="contract.showPaymentForm" class="payment-form">
+          <label for="walletId">Wallet ID:</label>
+          <input type="text" id="walletId" [(ngModel)]="walletId" />
+
+          <label for="walletPin">Wallet PIN:</label>
+          <input type="password" id="walletPin" [(ngModel)]="walletPin" />
+
+          <label for="walletPin">Amount to pay:</label>
+          <input type="text" id="amountToPay" [(ngModel)]="amountToPay" />
+
+          <div
+          class="verify-form-container"
+          *ngIf="otpVerificationVisible">
+          <input
+            [(ngModel)]="transactionVerifyInput"
+            placeholder="Enter OTP"
+            class="verify-form-input"
+          />
+          <button (click)="payForProperty(contract)" class="verify-button">
+            Verify
+          </button>
+        </div>
+        <button
+          (click)="showTransactionVerification(contract)"
+          class="pay-button"
+        >
+          Pay
+        </button>
+
+          <!-- <button class="toggle-button" (click)="payForProperty(contract)">
+            Pay
+          </button> -->
+        </div>
+
+        <button class="toggle-button" (click)="togglePaymentForm(contract)">
+          {{ !contract.showPaymentForm ? "Pay For Properties" : "Close" }}
+        </button>
+        <div *ngIf="responseMessageOne">
+          <p>
+            <strong>{{ responseMessageOne }}</strong>
+          </p>
+        </div>
+        <div *ngIf="responseMessageTwo">
+          <p>
+            <strong>{{ responseMessageTwo }}</strong>
+          </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="navigation-buttons">
+    <button (click)="goToHomePage()" class="nav-button">
+      Search For Properties
+    </button>
+    <button routerLink="/signin" class="nav-button">Logout</button>
+  </div>
+</div>

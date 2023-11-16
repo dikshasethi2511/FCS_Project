@@ -1,0 +1,11 @@
+# Node.js
+frontend/node_modules/
+
+# Environment variables
+backend/.env
+
+# Exclude all .pem files
+*.pem
+
+# Exclude user_info.txt
+user_info.txt

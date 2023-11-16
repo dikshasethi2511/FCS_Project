@@ -1,0 +1,208 @@
+/* home-page.component.css */
+
+.home-page {
+  text-align: center;
+  margin: 20px;
+}
+
+.page-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-item {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-email {
+  font-size: 16px;
+  color: #777;
+}
+
+.properties-title {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.property-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.property-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.property-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.logout-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #0056b3;
+}
+
+.profile-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.profile-button:hover {
+  background-color: #0056b3;
+}
+
+/* Add these styles to your component's CSS file */
+
+.filter-section {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Set a maximum width */
+  margin: auto; /* Center the box */
+}
+
+h2 {
+  color: #333;
+}
+
+.filter-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.range-inputs {
+  display: flex;
+}
+
+.range-divider {
+  margin: 0 5px;
+  line-height: 32px;
+}
+
+.date-filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group {
+  margin-top: 10px;
+}
+
+.with-margin {
+  margin-top: 30px; /* Adjust the value as needed */
+}
+
+.button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.property-document {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.delete-document-button {
+  color: red; /* Red color for the "X" */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.delete-document-button:hover {
+  text-decoration: underline; /* Add underline on hover for the "X" */
+}
+
+.delete-button {
+  background-color: red;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.verify-button {
+  background-color: green;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}

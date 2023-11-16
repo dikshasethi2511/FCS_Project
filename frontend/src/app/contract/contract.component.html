@@ -1,0 +1,94 @@
+<div class="contract-container">
+  <h1>Contract</h1>
+  <div class="contract-details">
+    <div>
+      <label>Name: </label>
+      <span>{{ allContractData.property_name }}</span>
+    </div>
+    <div>
+      <label>Buyer/ Lessee: </label>
+      <span>{{ allContractData.buyer_email }}</span>
+    </div>
+    <div>
+      <label>Property Owner: </label>
+      <span>{{ allContractData.seller_email }}</span>
+    </div>
+    <div>
+      <label>Value: </label>
+      <span>{{
+        allContractData.for_sale
+          ? allContractData.property_value
+          : allContractData.property_value + "/month"
+      }}</span>
+    </div>
+    <div>
+      <label>Type: </label>
+      <span>{{ allContractData.for_sale ? "Buy" : "Rent" }}</span>
+    </div>
+    <div>
+      <label>Location: </label>
+      <span>{{ allContractData.property_location }}</span>
+    </div>
+    <div>
+      <label>Amenities: </label>
+      <span>{{ allContractData.property_amenities }}</span>
+    </div>
+
+    <!-- Display additional fields if the property type is 'Rent' -->
+    <div *ngIf="!allContractData.for_sale" class="rent-details">
+      <div>
+        <label>From Date: </label>
+        <span>{{ allContractData.property_fromDate }}</span>
+      </div>
+      <div>
+        <label>To Date: </label>
+        <span>{{ allContractData.property_toDate }}</span>
+      </div>
+    </div>
+
+    <input
+      type="checkbox"
+      id="agreeCheckbox"
+      [(ngModel)]="isAgreed"
+      (change)="onCheckboxChange()"
+      [disabled]="isAgreed"
+    />
+    <label for="agreeCheckbox">I agree</label>
+  </div>
+
+  <div *ngIf="isPortalGenerated.status">
+    <p>{{ isPortalGenerated.message }}.</p>
+    <div class="private-key-input">
+      <label>Input Private Key:</label>
+      <input type="password" [(ngModel)]="privateKey" />
+      <button
+        (click)="submitPrivateKey()"
+        class="pretty-button"
+        [ngClass]="{ 'pretty-button': true }"
+      >
+        Submit Private Key
+      </button>
+    </div>
+    <div *ngIf="verificationMessage !== ''">
+      <p>{{ verificationMessage }}</p>
+    </div>
+  </div>
+
+  <!-- Add a button to trigger the 'gotToSearchProps' function -->
+  <button
+    *ngIf="showGoBackButton"
+    (click)="gotToSearchProps()"
+    class="pretty-button"
+    [ngClass]="{ 'pretty-button': true }"
+  >
+    Search For Properties
+  </button>
+  <button
+    *ngIf="goBackWithoutSigning"
+    (click)="goBackWithoutSigningContract()"
+    class="pretty-button"
+    [ngClass]="{ 'pretty-button': true }"
+  >
+    Search For Properties
+  </button>
+</div>

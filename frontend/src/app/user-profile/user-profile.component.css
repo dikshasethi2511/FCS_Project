@@ -1,0 +1,285 @@
+/* user-profile.component.css */
+
+.user-profile {
+  text-align: center;
+  margin: 20px;
+}
+
+h2 {
+  font-size: 28px;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.user-info p {
+  font-weight: bold;
+  color: #555;
+  margin: 5px 0;
+}
+
+.ul {
+  list-style: none;
+  padding: 0;
+}
+
+.property-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.property-details {
+  text-align: left;
+}
+
+.property-details p {
+  color: #333;
+  margin: 5px 0;
+}
+
+.property-actions {
+  text-align: right;
+}
+
+.delete-button {
+  background-color: #ff5c5c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #ff3c3c;
+}
+
+.toggle-button-2 {
+  background-color: #77f853;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.toggle-button-2:hover {
+  background-color: #77f853;
+}
+
+.property-form {
+  margin-top: 20px;
+}
+
+.toggle-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-input {
+  margin: 5px 0;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.action-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+.navigation-buttons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+}
+
+.nav-button:last-child {
+  margin-right: 0;
+}
+
+.nav-button:hover {
+  background-color: #555;
+}
+
+/* Add styles for the OTP verification input box */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.verify-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.verify-form-input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.verify-action-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.upload-document-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+}
+
+.upload-document-button:hover {
+  background-color: #0056b3;
+}
+
+.upload-document-button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.messagepopup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Adjust the z-index as needed */
+}
+
+.messagepopup {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  max-width: 80%; /* Adjust the maximum width as needed */
+  text-align: center;
+}
+
+.message-popup-content {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+}
+
+.timer {
+  font-size: 36px;
+  color: #333;
+  font-weight: bold;
+}
+
+.property-document {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #4ca8af; /* Green background color for the button */
+  color: white; /* White text color */
+  border: none; /* Remove button border */
+  border-radius: 5px; /* Add some rounded corners */
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.delete-document-button {
+  color: red; /* Red color for the "X" */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.delete-document-button:hover {
+  text-decoration: underline; /* Add underline on hover for the "X" */
+}
+
+.wallet-button:disabled {
+  opacity: 0.5; /* Reduce opacity to visually indicate that the button is disabled */
+  cursor: not-allowed; /* Change cursor to not-allowed */
+}

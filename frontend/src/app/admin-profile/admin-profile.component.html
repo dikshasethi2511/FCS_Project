@@ -1,0 +1,82 @@
+<div class="home-page">
+  <button class="button" (click)="toggleView()">
+    {{ isViewingUsers ? "View Properties" : "View Users" }}
+  </button>
+  <!-- Add the "View Transactions" button -->
+  <button class="button" (click)="viewTransactions()">
+    View Transactions
+  </button>
+  <h2 class="page-title with-margin">
+    {{ isViewingUsers ? "All Users" : "All Properties" }}
+  </h2>
+
+  <ul class="user-list" *ngIf="isViewingUsers; else propertyList">
+    <li *ngFor="let user of users" class="user-item">
+      <div class="user-info">
+        <h3 class="user-name">{{ user.name }}</h3>
+        <p class="user-email">{{ user.email }}</p>
+        <p class="user-reports">Reports: {{ user.reports }}</p>
+      </div>
+      <button class="delete-button" (click)="deleteUser(user.email)">
+        Delete
+      </button>
+    </li>
+  </ul>
+
+  <ng-template #propertyList>
+    <ul class="property-list">
+      <li *ngFor="let property of properties" class="property-item">
+        <div class="property-info">
+          <h3 class="property-name">{{ property.name }}</h3>
+          <p><strong>Property Owner:</strong> {{ property.owner_email }}</p>
+          <p>
+            <strong>Property Value:</strong>
+            {{ property.for_sale ? property.price : property.price + "/month" }}
+          </p>
+          <p><strong>Property Location:</strong> {{ property.location }}</p>
+          <p>
+            <strong>Property Type:</strong>
+            {{ property.for_sale ? "Buy" : "Rent" }}
+          </p>
+          <ng-container *ngIf="property.amenities">
+            <p><strong>Property Amenities:</strong> {{ property.amenities }}</p>
+          </ng-container>
+          <ng-container *ngIf="!property.for_sale">
+            <p><strong>Dates of Availability</strong></p>
+            <p><strong>From Date:</strong> {{ property.start_date }}</p>
+            <p><strong>To Date:</strong> {{ property.end_date }}</p>
+          </ng-container>
+          <p><strong>Reports:</strong> {{ property.reports }}</p>
+        </div>
+        <button class="delete-button" (click)="deleteProperty(property.id)">
+          Delete
+        </button>
+        <button
+          class="verify-button"
+          (click)="verifyAllPropertyDocuments(property.id)"
+        >
+          Verify
+        </button>
+        <ul *ngIf="property.documents">
+          <li
+            *ngFor="let document of property.documents"
+            class="property-document-item"
+          >
+            <div class="property-document">
+              <button (click)="downloadPdfWithContent(document.content)">
+                {{ document.name }}
+              </button>
+              <span
+                class="delete-document-button"
+                (click)="deleteDocumentFromProperty(document.id)"
+                >X
+              </span>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </ng-template>
+
+  <button class="logout-button" routerLink="/user-register">Logout</button>
+</div>

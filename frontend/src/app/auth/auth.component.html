@@ -1,0 +1,147 @@
+<div class="auth-container">
+  <h2>Welcome to <span style="color: #007bff">Propertea.in</span></h2>
+
+  <div class="button-container">
+    <button class="btn-primary" (click)="onSignUpClick()">Signup</button>
+    <button class="btn-primary" (click)="onLoginClick()">Login</button>
+    <button class="btn-primary" (click)="adminLogin()">Admin</button>
+  </div>
+
+  <!-- Login Form -->
+  <div>
+    <form (submit)="logIn()" *ngIf="showLogin">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="loginData.email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="loginData.password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn-primary">Log In</button>
+    </form>
+  </div>
+
+  <!-- Signup Form -->
+  <div>
+    <form
+      *ngIf="!showLogin"
+      (ngSubmit)="register()"
+      #loginForm="ngForm"
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="registerData.name"
+          required
+          [disabled]="verificationFormDisabled"
+        />
+      </div>
+      <div class="form-group">
+        <label for="registerEmail">Email:</label>
+        <input
+          type="text"
+          id="registerEmail"
+          name="registerEmail"
+          [(ngModel)]="registerData.email"
+          required
+          [disabled]="verificationFormDisabled"
+        />
+      </div>
+      <div class="form-group">
+        <label for="registerPassword">Password:</label>
+        <input
+          type="password"
+          id="registerPassword"
+          name="registerPassword"
+          [(ngModel)]="registerData.password"
+          required
+          [disabled]="verificationFormDisabled"
+        />
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="registerData.confirmPassword"
+          required
+          [disabled]="verificationFormDisabled"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="ekyc-password">E-KYC Password:</label>
+        <input
+          type="password"
+          id="ekyc-password"
+          name="ekyc-password"
+          [(ngModel)]="registerData.ekyc_password"
+          required
+          [disabled]="verificationFormDisabled"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="file">Upload File (Aadhar Image only):</label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          (change)="onFileSelected($event)"
+          accept="image/jpeg, image/png, image/jpg"
+          required
+          [disabled]="verificationFormDisabled"
+        />
+      </div>
+
+      <div class="form-group" *ngIf="showVerificationInput">
+        <label for="verificationCode">Verification Code:</label>
+        <input
+          type="text"
+          id="verificationCode"
+          name="verificationCode"
+          [(ngModel)]="registerData.verificationCode"
+          required
+        />
+      </div>
+
+      <!-- <button type="submit" class="btn-primary">Register</button> -->
+      <button type="submit" class="btn-primary">
+        {{ showVerificationInput ? "Verify KYC" : "Register" }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Display the response message -->
+  <div *ngIf="responseMessage">
+    <p>{{ responseMessage }}</p>
+  </div>
+
+  <div class="messagepopup-overlay" *ngIf="showPopup">
+    <div class="messagepopup">
+      <div class="message-popup-content">
+        {{ popupText }}
+        <br />
+        <span id="timer">{{ countdown }}</span>
+      </div>
+    </div>
+  </div>
+</div>
