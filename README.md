@@ -43,4 +43,4 @@ This project was developed by
 * [Diksha Sethi](https://github.com/dikshasethi2511)
 * [Srishti Jain]
 * [Mudit Gupta]
-* [Kush Aggarwal]
+* [Kush Aggarwal] (https://github.com/kushaggarwal1)
