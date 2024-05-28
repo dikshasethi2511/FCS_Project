@@ -41,6 +41,6 @@
 ## Authors
 This project was developed by
 * [Diksha Sethi](https://github.com/dikshasethi2511)
-* [Srishti Jain]
+* [Srishti Jain](https://github.com/srishti20543)
 * [Mudit Gupta]
-* [Kush Aggarwal] (https://github.com/kushaggarwal1)
+* [Kush Aggarwal](https://github.com/kushaggarwal1)
